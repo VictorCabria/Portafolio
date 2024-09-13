@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:portafolio_flutter/presentation/pages/root_widget.dart';
 import '../../domain/locator.dart';
 import '../controllers/home_page_view_model.dart';
 import '../widgets/custom_appbar_widget.dart';
-import '../widgets/image_show_widget.dart';
+import '../widgets/experience_widget.dart';
 import '../widgets/profilesection_widget.dart';
 
 class NewHomeWidget extends LocalRootWidget<NewHomeViewModel> {
@@ -14,29 +13,50 @@ class NewHomeWidget extends LocalRootWidget<NewHomeViewModel> {
   @override
   Widget widget(NewHomeViewModel model, BuildContext context) {
     return withLoading(
-        body: Container(
-          color: Colors.white,
-          child: Scaffold(
-            appBar: CustomAppBar(
-              logoText1: "TODOS",
-              logoText2: "lib/assets/png/LOGO-01.png",
-              navItems: ["Home", "About", "Services", "Blog", "Contact"],
+      body: Scaffold(
+        extendBodyBehindAppBar: true, // Extiende el cuerpo detrás del AppBar
+        appBar: CustomAppBar(
+          logoText1: "TODOS",
+          logoText2: "lib/assets/png/LOGO-01.png",
+          navItems: ["Home", "About", "Services", "Blog", "Contact"],
+        ),
+        body: Stack(
+          children: [
+            // GIF as background
+            Positioned.fill(
+              child: Image.asset(
+                'lib/assets/gif/Gif_De_Estrellas.gif', // Reemplaza con el path de tu GIF local
+                fit: BoxFit.cover, // Hace que el GIF cubra todo el fondo
+              ),
             ),
-            body: Center(
+            // Content on top of the GIF
+            Center(
               child: Container(
-                padding: EdgeInsets.symmetric(vertical: 6.w, horizontal: 6.w),
+               padding: EdgeInsets.symmetric(vertical: 6.w, horizontal: 6.w), 
                 constraints: BoxConstraints(
                   maxWidth: 1150.dp,
                 ),
-                child: ProfileSectionWidget(),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      ProfileSectionWidget(),
+                      ExperienceWidget(),
+                    ],
+                  ),
+                ),
               ),
+              
             ),
-          ),
+            
+          ],
         ),
-        model: model,
-        context: context);
+      ),
+      model: model,
+      context: context,
+    );
   }
 }
+
 
 
 /* class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {

@@ -19,36 +19,43 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.black, // Fondo oscuro
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 4.dp,
-            offset: Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.dp, vertical: 10.dp),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            // Logo a la izquierda
-            ImageShowWidget(
-              isAsset: true,
-              image: logoText2,
-              width: 100.69.dp,
-              height: 50.94.dp,
-            ), 
-            // Menú de navegación a la derecha
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children:
-                  navItems.map((item) => _buildNavItem(context, item)).toList(),
+    return Center(
+      // Wrap everything in Center
+      child: Container(
+        constraints: BoxConstraints(
+          maxWidth: 1050.dp, // Limit the maximum width
+        ),
+        decoration: BoxDecoration(
+          color: Colors.transparent, // Background transparent
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 4.dp,
+              offset: Offset(0, 2),
             ),
           ],
+        ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.dp, vertical: 10.dp),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // Logo
+              ImageShowWidget(
+                isAsset: true,
+                image: logoText2,
+                width: 100.69.dp,
+                height: 50.94.dp,
+              ),
+              // Navigation items
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: navItems
+                    .map((item) => _buildNavItem(context, item))
+                    .toList(),
+              ),
+            ],
+          ),
         ),
       ),
     );
